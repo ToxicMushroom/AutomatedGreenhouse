@@ -11,4 +11,5 @@ class Container {
     var settings: Settings = OBJECT_MAPPER.readValue(File("config.json"), Settings::class.java)
     val taskManager = TaskManager()
     val serviceManager = ServiceManager(taskManager)
+
 }
