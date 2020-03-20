@@ -3,6 +3,7 @@ package me.melijn.gip.services.bme280
 import com.pi4j.io.i2c.I2CBus
 import com.pi4j.io.i2c.I2CFactory
 import me.melijn.gip.services.Service
+import me.melijn.gip.threading.Task
 import kotlin.experimental.and
 import kotlin.Double as Double1
 
@@ -11,11 +12,9 @@ class BME280 : Service("bme280", 10) {
     // Create I2C bus
     val bus = I2CFactory.getInstance(I2CBus.BUS_1)
 
-    override val service: Runnable = Runnable {
-
-
+    override val service: Task = Task {
         // Get I2C device, BME280 I2C address is 0x76(108)
-        val device = bus.getDevice(0x76)
+        val device = bus.getDevice(0x77)
 
         // Read 24 bytes of data from address 0x88(136)
         val b1 = ByteArray(24)

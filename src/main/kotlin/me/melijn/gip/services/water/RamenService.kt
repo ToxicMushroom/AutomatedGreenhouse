@@ -3,6 +3,7 @@ package me.melijn.gip.services.water
 import com.pi4j.io.gpio.PinState
 import com.pi4j.io.gpio.RaspiPin
 import me.melijn.gip.services.Service
+import me.melijn.gip.threading.Task
 import me.melijn.gip.utils.gpioController
 import java.util.concurrent.TimeUnit
 
@@ -17,7 +18,7 @@ class RamenService : Service("ramen", 1, 1, TimeUnit.MINUTES) {
         stepPin.setShutdownOptions(true, PinState.LOW)
     }
 
-    override val service: Runnable = Runnable {
+    override val service = Task {
         stepPin.pulse(10, TimeUnit.MILLISECONDS)
     }
 }

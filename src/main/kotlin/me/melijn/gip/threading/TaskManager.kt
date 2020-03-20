@@ -14,11 +14,9 @@ class TaskManager {
     private val dispatcher = executorService.asCoroutineDispatcher()
 
     fun async(block: suspend CoroutineScope.() -> Unit) = CoroutineScope(dispatcher).launch {
-        val task = Task(Runnable {
-            CoroutineScope(dispatcher).launch {
-                block.invoke(this)
-            }
-        })
+        val task = Task {
+            block.invoke(this)
+        }
         task.run()
     }
 }

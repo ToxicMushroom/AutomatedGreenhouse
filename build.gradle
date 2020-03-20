@@ -7,7 +7,7 @@ plugins {
 
 version '1.0'
 mainClassName = 'me.melijn.gip.SerreKt'
-sourceCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
@@ -43,6 +43,6 @@ dependencies {
 compileJava.options.encoding = 'UTF-8'
 compileKotlin {
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11
+        jvmTarget = JavaVersion.VERSION_1_8
     }
 }

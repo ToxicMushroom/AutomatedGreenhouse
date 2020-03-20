@@ -1,6 +1,7 @@
 package me.melijn.gip.services
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder
+import me.melijn.gip.threading.Task
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.concurrent.*
@@ -17,7 +18,7 @@ abstract class Service(
     private lateinit var future: ScheduledFuture<*>
     val logger: Logger = LoggerFactory.getLogger(name)
 
-    abstract val service: Runnable
+    abstract val service: Task
 
     open fun start() {
         future = scheduledExecutor.scheduleAtFixedRate(service, initialDelay, period, unit)
