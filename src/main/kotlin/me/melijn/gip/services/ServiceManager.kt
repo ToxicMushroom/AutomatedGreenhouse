@@ -1,6 +1,6 @@
 package me.melijn.gip.services
 
-import me.melijn.gip.services.bme280.BME280
+import me.melijn.gip.services.water.RamenService
 import me.melijn.gip.threading.TaskManager
 
 class ServiceManager(taskManager: TaskManager) {
@@ -8,7 +8,9 @@ class ServiceManager(taskManager: TaskManager) {
     var started = false
 
     private val services = mutableListOf(
-        BME280()
+//        BME280(),
+//        CameraService(),
+        RamenService()
     )
 
     fun startServices() {
