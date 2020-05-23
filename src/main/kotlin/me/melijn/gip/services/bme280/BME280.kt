@@ -131,7 +131,6 @@ class BME280 : Service("bme280", 10) {
                 (adc_t.toDouble() / 131072.0 - dig_T1.toDouble() / 8192.0) * dig_T3.toDouble()
         val t_fine: Double1 = (var1 + var2)
         val cTemp = (var1 + var2) / 5120.0
-        val fTemp = cTemp * 1.8 + 32
 
         // Pressure offset calculations
         var1 = t_fine / 2.0 - 64000.0
@@ -160,9 +159,8 @@ class BME280 : Service("bme280", 10) {
         // Output data to screen
 
         // Output data to screen
-        System.out.printf("Temperature in Celsius : %.2f C %n", cTemp)
-        System.out.printf("Temperature in Fahrenheit : %.2f F %n", fTemp)
-        System.out.printf("Pressure : %.2f hPa %n", pressure)
-        System.out.printf("Relative Humidity : %.2f %% RH %n", humidity)
+        System.out.printf("Temperatuur in Celsius : %.2f C %n", cTemp)
+        System.out.printf("Luchtdruk : %.2f hPa %n", pressure)
+        System.out.printf("Relatieve Luchtvochtigheid : %.2f %% RH %n", humidity)
     }
 }

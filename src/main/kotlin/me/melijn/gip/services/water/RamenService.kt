@@ -10,17 +10,16 @@ import java.util.concurrent.TimeUnit
 
 class RamenService : Service("Ramen", 1, 1, TimeUnit.SECONDS) {
 
-    private val directionPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_20, "dirPin", PinState.LOW)
-    private val stepPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_21, "stepPin", PinState.LOW)
+    // if you want the actual addresses use:
+    // gpio readall
+    private val directionPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_28, "dirPin", PinState.HIGH)
+    private val stepPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_29, "stepPin", PinState.HIGH)
 
 
     override val service = Task {
-        logger.info("hi there ${stepPin.isExported}")
         stepPin.high()
         delay(1000)
-        logger.info("lo there ${stepPin.isHigh}")
         stepPin.low()
         delay(1000)
-
     }
 }

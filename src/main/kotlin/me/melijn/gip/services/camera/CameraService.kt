@@ -18,6 +18,7 @@ import kotlin.math.sqrt
 
 
 class CameraService : Service("camera", 30) {
+
     private val config: CameraConfiguration
 
     init {
