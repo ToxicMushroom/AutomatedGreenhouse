@@ -156,11 +156,17 @@ class BME280 : Service("bme280", 10) {
             humidity = 0.0
         }
 
-        // Output data to screen
-
-        // Output data to screen
         System.out.printf("Temperatuur in Celsius : %.2f C %n", cTemp)
         System.out.printf("Luchtdruk : %.2f hPa %n", pressure)
         System.out.printf("Relatieve Luchtvochtigheid : %.2f %% RH %n", humidity)
+        TEMP = cTemp
+        PRESSURE = pressure
+        HUMIDITY = humidity
+    }
+
+    companion object {
+        var TEMP = 20.0 //°C
+        var PRESSURE = 1000.0 //hPA
+        var HUMIDITY = 0.0 //%
     }
 }

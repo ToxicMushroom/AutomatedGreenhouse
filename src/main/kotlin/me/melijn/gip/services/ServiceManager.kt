@@ -1,16 +1,18 @@
 package me.melijn.gip.services
 
+import me.melijn.gip.services.bme280.BME280
+import me.melijn.gip.services.camera.CameraService
+import me.melijn.gip.services.water.GrondService
 import me.melijn.gip.services.water.RamenService
-import me.melijn.gip.threading.TaskManager
+import me.melijn.gip.services.water.WaterService
 
-class ServiceManager(taskManager: TaskManager) {
-
-    var started = false
+class ServiceManager {
 
     private val services = mutableListOf(
-//        BME280(),
-//        CameraService(),
-        RamenService()
+        BME280(),
+        CameraService(),
+        RamenService(),
+        WaterService()
     )
 
     fun startServices() {
@@ -18,14 +20,6 @@ class ServiceManager(taskManager: TaskManager) {
             service.start()
             service.logger.info("Started ${service.name}Service")
         }
-        started = true
-    }
-
-    fun stopServices() {
-        require(started) { "Never started!" }
-        services.forEach { service ->
-            service.stop()
-            service.logger.info("Stopped ${service.name}Service")
-        }
+        GrondService()
     }
 }

@@ -34,7 +34,7 @@ class CameraService : Service("camera", 30) {
     override val service: Task = Task {
         Camera(config).use { camera ->
             camera.takePicture(FosPictureCaptureHandler {
-                var total: Int = 0
+                var total = 0
                 for (x in 0 until it.width) {
                     for (y in 0 until it.height) {
                         val color = it.getRGB(x, y)
@@ -44,7 +44,9 @@ class CameraService : Service("camera", 30) {
                         total += getBrightness(r, g, b)
                     }
                 }
-                println(total / (it.width * it.height))
+                val britghtness = total / (it.width * it.height)
+                BRITGHTNESS = britghtness
+                println(britghtness)
                 val f = File("${System.currentTimeMillis()}.jpg")
                 ImageIO.write(it, "jpg", f)
             })
@@ -53,6 +55,10 @@ class CameraService : Service("camera", 30) {
 
     private fun getBrightness(r: Int, g: Int, b: Int): Int {
         return sqrt(r * r * .241 + g * g * .691 + b * b * .068).toInt()
+    }
+
+    companion object {
+        var BRITGHTNESS = 20
     }
 }
 

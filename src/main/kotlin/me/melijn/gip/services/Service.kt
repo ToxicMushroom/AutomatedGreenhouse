@@ -23,8 +23,4 @@ abstract class Service(
     open fun start() {
         future = scheduledExecutor.scheduleAtFixedRate(service, initialDelay, period, unit)
     }
-
-    open fun stop() {
-        future.cancel(false)
-    }
 }
