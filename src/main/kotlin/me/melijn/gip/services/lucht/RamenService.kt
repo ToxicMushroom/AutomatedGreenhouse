@@ -1,4 +1,4 @@
-package me.melijn.gip.services.water
+package me.melijn.gip.services.lucht
 
 import com.pi4j.io.gpio.PinState
 import com.pi4j.io.gpio.RaspiPin

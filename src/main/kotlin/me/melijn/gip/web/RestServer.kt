@@ -9,7 +9,7 @@ class RestServer : Jooby() {
         use(Jackson())
 
         get("/*") { _, rsp ->
-            rsp.send("tom")
+            rsp.send("test")
         }
     }
 }
