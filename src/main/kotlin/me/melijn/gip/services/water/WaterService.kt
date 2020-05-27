@@ -10,8 +10,10 @@ import java.util.concurrent.TimeUnit
 
 class WaterService : Service("water", 10, 10, TimeUnit.MINUTES) {
 
+
     private val pumpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_13, "pumpPin", PinState.HIGH)
 
+    // Beslist wanneer de water pomp moet aangaan
     override val service = Task {
         if (GrondService.groundResistance > 80_000) {
             pumpPin.high()

@@ -7,7 +7,7 @@ import me.melijn.gip.threading.Task
 import kotlin.experimental.and
 import kotlin.Double as Double1
 
-
+// Service die de temperatuur, luchtdruk en luchtvochtigheid leest
 class BME280 : Service("bme280", 10) {
     // Create I2C bus
     val bus = I2CFactory.getInstance(I2CBus.BUS_1)
@@ -156,14 +156,17 @@ class BME280 : Service("bme280", 10) {
             humidity = 0.0
         }
 
-        System.out.printf("Temperatuur in Celsius : %.2f C %n", cTemp)
-        System.out.printf("Luchtdruk : %.2f hPa %n", pressure)
-        System.out.printf("Relatieve Luchtvochtigheid : %.2f %% RH %n", humidity)
+        logger.info("Temperatuur in Celsius : %.2f C %n", cTemp)
+        logger.info("Luchtdruk : %.2f hPa %n", pressure)
+        logger.info("Relatieve Luchtvochtigheid : %.2f %% RH %n", humidity)
+
+        // Updaten van de globale variabelen
         TEMP = cTemp
         PRESSURE = pressure
         HUMIDITY = humidity
     }
 
+    // Globale variabelen
     companion object {
         var TEMP = 20.0 //°C
         var PRESSURE = 1000.0 //hPA
