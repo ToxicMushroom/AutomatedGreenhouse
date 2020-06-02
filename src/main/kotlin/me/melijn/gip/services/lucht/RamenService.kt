@@ -15,11 +15,11 @@ class RamenService : Service("Ramen", 1, 1, TimeUnit.SECONDS) {
     // gpio readall
     private val directionPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_28, "dirPin", PinState.HIGH)
     private val stepPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_29, "stepPin", PinState.HIGH)
-    var status = false
+
 
     override val service = Task {
-        if (BME280.TEMP > 28.0 && !status) {
-            status = true
+        if (BME280.TEMP > 28.0 && !STATUS) {
+            STATUS = true
             directionPin.low()
             repeat(5) {//1.8° per step
                 stepPin.high()
@@ -27,8 +27,8 @@ class RamenService : Service("Ramen", 1, 1, TimeUnit.SECONDS) {
                 stepPin.low()
                 delay(200)
             }
-        } else if (status) {
-            status = false
+        } else if (STATUS) {
+            STATUS = false
             directionPin.high()
             repeat(5) {//1.8° per step
                 stepPin.high()
@@ -37,5 +37,10 @@ class RamenService : Service("Ramen", 1, 1, TimeUnit.SECONDS) {
                 delay(200)
             }
         }
+    }
+
+    companion object {
+        // true = open & false = gesloten
+        var STATUS = false
     }
 }

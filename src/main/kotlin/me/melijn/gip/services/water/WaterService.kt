@@ -13,10 +13,17 @@ class WaterService : Service("water", 10, 10, TimeUnit.MINUTES) {
     private val pumpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_13, "pumpPin", PinState.HIGH)
 
     override val service = Task {
-        if (GrondService.groundResistance > 80_000) {
+        if (GrondService.RESISTANCE > 80_000) {
             pumpPin.high()
+            STATUS = true
             delay(5000)
+            STATUS = false
         }
         pumpPin.low()
+    }
+
+    companion object {
+        // true = aan & false = uit
+        var STATUS = false
     }
 }

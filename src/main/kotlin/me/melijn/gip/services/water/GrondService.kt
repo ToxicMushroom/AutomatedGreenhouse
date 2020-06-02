@@ -8,7 +8,7 @@ class GrondService {
         val serial = SerialFactory.createInstance()
         serial.addListener(SerialDataEventListener {
             println(it.asciiString)
-            groundResistance = it.asciiString.toDoubleOrNull() ?: 0.0
+            RESISTANCE = it.asciiString.toDoubleOrNull() ?: 0.0
         })
         serial.open(
             SerialConfig()
@@ -21,6 +21,6 @@ class GrondService {
     }
 
     companion object {
-        var groundResistance: Double = 0.0
+        var RESISTANCE: Double = 0.0
     }
 }
