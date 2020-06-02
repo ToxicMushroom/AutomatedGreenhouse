@@ -8,6 +8,7 @@ import me.melijn.gip.services.water.WaterService
 
 class ServiceManager {
 
+    // Registreerd de services
     private val services = mutableListOf(
         BME280(),
         CameraService(),
@@ -15,6 +16,7 @@ class ServiceManager {
         WaterService()
     )
 
+    // Start alle services
     fun startServices() {
         services.forEach { service ->
             service.start()

@@ -6,10 +6,12 @@ class GrondService {
 
     init {
         val serial = SerialFactory.createInstance()
+        // Luistert voor serieële data en zet dit in de grondWeerstand variabele
         serial.addListener(SerialDataEventListener {
             println(it.asciiString)
             RESISTANCE = it.asciiString.toDoubleOrNull() ?: 0.0
         })
+        // Opent de seriele connectie
         serial.open(
             SerialConfig()
                 .baud(Baud._9600)
@@ -20,6 +22,7 @@ class GrondService {
         )
     }
 
+    // Globale grondWeerstand variabele
     companion object {
         var RESISTANCE: Double = 0.0
     }

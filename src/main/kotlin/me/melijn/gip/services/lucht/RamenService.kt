@@ -13,15 +13,20 @@ class RamenService : Service("Ramen", 1, 1, TimeUnit.SECONDS) {
 
     // if you want the actual addresses use:
     // gpio readall
+    // Definieer de pinnen om de motoren mee te besturen
     private val directionPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_28, "dirPin", PinState.HIGH)
     private val stepPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_29, "stepPin", PinState.HIGH)
 
 
     override val service = Task {
+        // Test de ingelezen temperatuur en status van het raam om te beslissen wat er moet gebeuren
         if (BME280.TEMP > 28.0 && !STATUS) {
             STATUS = true
+
             directionPin.low()
-            repeat(5) {//1.8° per step
+            repeat(5) { //1.8° per step
+
+                // Maakt 1 stap
                 stepPin.high()
                 delay(200)
                 stepPin.low()
@@ -30,7 +35,9 @@ class RamenService : Service("Ramen", 1, 1, TimeUnit.SECONDS) {
         } else if (STATUS) {
             STATUS = false
             directionPin.high()
-            repeat(5) {//1.8° per step
+            repeat(5) { //1.8° per step
+
+                // Maakt 1 stap
                 stepPin.high()
                 delay(200)
                 stepPin.low()

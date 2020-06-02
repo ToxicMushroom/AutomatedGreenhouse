@@ -22,6 +22,7 @@ class CameraService : Service("camera", 30) {
     private val config: CameraConfiguration
 
     init {
+        // Setup voor de camera library
         installTempLibrary()
         config = cameraConfiguration()
             .width(1920)
@@ -32,6 +33,7 @@ class CameraService : Service("camera", 30) {
     }
 
     override val service: Task = Task {
+        // Neemt een foto
         Camera(config).use { camera ->
             camera.takePicture(FosPictureCaptureHandler {
                 var total = 0
@@ -44,24 +46,32 @@ class CameraService : Service("camera", 30) {
                         total += getBrightness(r, g, b)
                     }
                 }
+                // Zet het totaal om naar een gemiddelde
                 val britghtness = total / (it.width * it.height)
                 BRITGHTNESS = britghtness
                 println(britghtness)
+
+                // Opslaan afbeelding op sd kaart
                 val f = File("${System.currentTimeMillis()}.jpg")
                 ImageIO.write(it, "jpg", f)
             })
         }
     }
 
+    // Formule om RGB om te zetten in verlichtheid
     private fun getBrightness(r: Int, g: Int, b: Int): Int {
         return sqrt(r * r * .241 + g * g * .691 + b * b * .068).toInt()
     }
 
+    // Globale verlichting variabele
     companion object {
         var BRITGHTNESS = 20
     }
 }
 
+/** PictureCaptureHandler implementatie oom een BufferedImage object te krijgen en de gegeven functie hiermee
+uit te voeren
+ **/
 class FosPictureCaptureHandler(private val func: (BufferedImage) -> Unit) : PictureCaptureHandler<BufferedImage> {
 
     private lateinit var baos: ByteArrayOutputStream
