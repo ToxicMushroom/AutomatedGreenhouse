@@ -9,7 +9,7 @@ import org.jooby.Jooby
 import org.jooby.json.Jackson
 
 // Webserver waar er sensor data op bepaalde locaties wordt geserveerd
-// Dit kunnen we desnoods in een groot punt verzamellen en verwerken in grafieken
+// Dit kunnen we later eventueel in een groot punt verzamellen en verwerken in grafieken
 class RestServer : Jooby() {
 
     init {
