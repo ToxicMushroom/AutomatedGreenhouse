@@ -11,21 +11,21 @@ import java.util.concurrent.TimeUnit
 class WaterService : Service("water", 10, 10, TimeUnit.MINUTES) {
 
 
-    private val pumpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_13, "pumpPin", PinState.HIGH)
+
 
     // Beslist wanneer de water pomp moet aangaan
     override val service = Task {
         if (GrondService.RESISTANCE > 80_000) {
             pumpPin.high()
-            STATUS = true
             delay(5000)
-            STATUS = false
         }
         pumpPin.low()
     }
 
     companion object {
+        private val pumpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_13, "pumpPin", PinState.HIGH)
         // true = aan & false = uit
-        var STATUS = false
+        val STATUS: Boolean
+            get() = pumpPin.isHigh
     }
 }
